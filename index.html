@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etch-a-Sketch</title>
+  <style>
+    body {
+      margin: 0;
+      background: #1a1a1a;
+      height: 100vh;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body > div {
+      width: 45vh;
+      margin: 0 5vh;
+    }
+
+    #pen-color {
+      all: inherit;
+      display: block;
+      width: 10rem;
+      height: 10rem;
+      outline: none;
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      grid-auto-columns: 5rem;
+      grid-auto-rows: 5rem;
+    }
+
+    .boxes {
+      position: relative;
+      width: 5rem;
+      height: 5rem;
+      background-color: white;
+      transition: background-color 300ms ease;
+    }
+
+    .boxes:hover {
+      background-color: whitesmoke;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>Settings</h1>
+    <label for="pen-color"><h2>Color Picker</h2></label>
+    <div id="pen-color-container"><input type="color" name="Pen" id="pen-color"></div>
+    <label for="pen-eraser"><h2>Eraser</h2></label>
+    <div id="pen-eraser-container"><button id="pen-eraser">Eraser</button></div>
+    <label for="pen-clear"><h2>Clear all</h2></label>
+    <div id="pen-clear-container"><button id="pen-clear">Clear</button></div>
+  </div>
+  <div>
+    <div id="grid">
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+      <div class="boxes"></div>
+    </div>
+  </div>
+  <script>
+    let eraser = false
+    
+    Array.from(document.getElementsByClassName('boxes')).forEach(elm => {
+      elm.addEventListener('click', () => {
+        if (eraser) {
+          return elm.style = null
+        }
+        elm.style.backgroundColor = document.getElementById('pen-color').value
+      })
+    })
+
+    document.getElementById('pen-eraser').onclick = () => {
+      eraser = !eraser
+
+      if (eraser) {
+        document.querySelector('label[for="pen-eraser"]').innerHTML = '<h2>Eraser: Active</h2>'
+      } else {
+        document.querySelector('label[for="pen-eraser"]').innerHTML = '<h2>Eraser: Inactive</h2>'
+      }
+    }
+
+    document.getElementById('pen-clear').onclick = () => {
+      Array.from(document.getElementsByClassName('boxes')).forEach(elm => elm.style = null)
+    }
+  </script>
+</body>
+
+</html>
